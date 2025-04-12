@@ -69,5 +69,6 @@ public class SudokuController {
 
     @FXML
     private void helpButtonAction() {
+        System.out.println("laspri gamer");
     }
 }

@@ -3,14 +3,18 @@ package com.example.miniproyect2.controller;
 import com.example.miniproyect2.model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class SudokuController {
     @FXML
     private GridPane boardGridPane;
-
     private Board board;
+
+    @FXML
+    private Button helpButton;
 
     @FXML
     public void initialize() {
@@ -61,5 +65,9 @@ public class SudokuController {
                 textField.setStyle(""); // Reset si está vacío
             }
         });
+    }
+
+    @FXML
+    private void helpButtonAction() {
     }
 }

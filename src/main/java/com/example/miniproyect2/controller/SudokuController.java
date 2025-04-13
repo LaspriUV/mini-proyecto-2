@@ -20,6 +20,7 @@ public class SudokuController {
     @FXML
     public void initialize() {
         fillBoard();
+
     }
 
     /*HU-1 Creacion de los campos de texto, crea un for, donde empieza en la fila 0, columna 0, donde
@@ -27,6 +28,8 @@ public class SudokuController {
     private void fillBoard() {
         board = new Board();
         board.printBoard();
+        System.out.println("\n\n\n\n");
+
 
         for (int row = 0; row < board.getBoard().size(); row++) {
             for (int col = 0; col < board.getBoard().size(); col++) {

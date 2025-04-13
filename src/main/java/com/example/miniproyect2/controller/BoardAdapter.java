@@ -1,5 +1,8 @@
 package com.example.miniproyect2.controller;
 
+import com.example.miniproyect2.model.Board;
+import com.example.miniproyect2.model.Board.BoardFull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

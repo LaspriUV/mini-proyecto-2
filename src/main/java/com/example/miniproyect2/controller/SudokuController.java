@@ -13,21 +13,31 @@ public class SudokuController {
     @FXML
     private GridPane boardGridPane;
     private Board board;
+    private Board.BoardFull boardFull;
 
     @FXML
     private Button helpButton;
 
     @FXML
     public void initialize() {
+        initializaFullBoard();
         fillBoard();
-
     }
+
+    public void initializaFullBoard() {
+        Board board = new Board();
+        this.boardFull = board.new BoardFull();
+        System.out.println("Sudoku Board Full\n");
+        boardFull.printBoardFull();
+    }
+
 
     /*HU-1 Creacion de los campos de texto, crea un for, donde empieza en la fila 0, columna 0, donde
     * cada vez va sumando 1 en 1*/
     private void fillBoard() {
         board = new Board();
         board.printBoard();
+
         System.out.println("\n\n\n\n");
 
 

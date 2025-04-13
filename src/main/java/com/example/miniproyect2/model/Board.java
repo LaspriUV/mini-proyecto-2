@@ -11,7 +11,8 @@ public class Board extends BoardAdapter {
     /**
      * Constructor initializes the board with zeros and then fills each block with one number.
      */
-    public Board() {
+    public Board() { /* Falta implementar la logica del sudoku
+     que revise fila, columna y bloque */
         board = new ArrayList<>();
         // Initialize the board with zeros.
         for (int i = 0; i < SIZE; i++) {
@@ -62,9 +63,11 @@ public class Board extends BoardAdapter {
                     board.get(i).set(j, numbers.get(j));
                 }
             }
+
         }
 
         public void printBoardFull() {
+            System.out.println("\nSudoku Board Full\n");
             for (List<Integer> row : board) {
                 for (Integer number : row) {
                     System.out.print(number + " ");

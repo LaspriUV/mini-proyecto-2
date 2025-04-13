@@ -25,7 +25,7 @@ public class BoardAdapter implements IBoardController {
 
         // Caso base de la recursión: si ya llenaste los 6 bloques (blockIndex == 6), el tablero está completo.
         if (blockIndex == TOTAL_BLOCKS) {
-            return true;
+            return true; // tablero completado
         }
 
         // 🔍 Determinar la posición del bloque actual:
@@ -40,39 +40,53 @@ public class BoardAdapter implements IBoardController {
             numbers.add(i);
         }
 
-        System.out.println(numbers);
         Collections.shuffle(numbers, random);
-        System.out.println("\n");
-        System.out.println(numbers);
-
+        /* Se modifico, no se ha terminado, falta implementar logica */
         // 🧩 Llenar las celdas del bloque actual
         for (int i = startRow; i < startRow + BLOCK_ROWS; i++) {
             for (int j = startCol; j < startCol + BLOCK_COLS; j++) {
-                for (Integer number : numbers) {
-                    if (isValid(i, j, number)) {
-                        board.get(i).set(j, number);
-                        if (fillBlocks(blockIndex + 1)) {
-                            return true;
+                if (board.get(i).get(j) == 0) { // Solo si esta vacia
+                    for (Integer number : numbers) {
+                        if (isValid(i, j, number)) {
+                            board.get(i).set(j, number);
+                            if (fillBlocks(blockIndex + 1)) {
+                                return true;
+                            }
+                            board.get(i).set(j, 0); // Backtrack
                         }
-                        board.get(i).set(j, 0);
                     }
+                    return false; // No hay numero valido para esta celda
                 }
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean isValid(int row, int col, int candidate) {
+        // verificar fila
         for (int j = 0; j < SIZE; j++) {
             if (board.get(row).get(j) == candidate) {
                 return false;
             }
         }
 
+        // verificar columna
         for (int i = 0; i < SIZE; i++) {
             if (board.get(row).get(i) == candidate) {
                 return false;
+            }
+        }
+
+        // Verificar bloque (2x3)
+        int blockStartRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
+        int blockStartCol = (col / BLOCK_COLS) * BLOCK_COLS;
+
+        for (int i = blockStartRow; i < blockStartRow + BLOCK_ROWS; i++) {
+            for (int j = blockStartCol; j < blockStartCol + BLOCK_COLS; j++) {
+                if (board.get(i).get(j) == candidate) {
+                    return false;
+                }
             }
         }
 

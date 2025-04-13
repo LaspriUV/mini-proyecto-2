@@ -1,0 +1,20 @@
+/*Css para darle diseño a la mayoria de las cosas*/
+
+/*Para los textfields, que tengan fondo negro y texto y borde blanco -.- */
+.text-field {
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+.text-field:focused {
+    -fx-border-color: white;
+}
+
+.text-field.invalid {
+    -fx-border-color: red;
+}
+
+

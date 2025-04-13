@@ -10,6 +10,7 @@ public class SudokuStage extends Stage {
     public SudokuStage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/miniproyect2/sudoku-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/com/example/miniproyect2/styles.css").toExternalForm());
         setTitle("Sudoku");
         setResizable(false);
         setScene(scene);

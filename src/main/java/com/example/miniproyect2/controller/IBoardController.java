@@ -10,5 +10,7 @@ public interface IBoardController {
 
     void printBoard();
 
+    void putNumber(int row, int col, int candidate);
+
     List<List<Integer>> getBoard();
 }

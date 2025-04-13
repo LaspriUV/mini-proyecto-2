@@ -3,7 +3,6 @@ package com.example.miniproyect2.controller;
 import com.example.miniproyect2.model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -12,7 +11,7 @@ import javafx.scene.layout.Priority;
 public class SudokuController {
     @FXML
     private GridPane boardGridPane;
-    private Board board;
+    private Board board = new Board();
     private Board.BoardFull boardFull;
 
     @FXML
@@ -21,7 +20,7 @@ public class SudokuController {
     @FXML
     public void initialize() {
         fillBoard();
-        initializaFullBoard();
+        //initializaFullBoard();
     }
 
     public void initializaFullBoard() {
@@ -33,7 +32,6 @@ public class SudokuController {
     /*HU-1 Creacion de los campos de texto, crea un for, donde empieza en la fila 0, columna 0, donde
     * cada vez va sumando 1 en 1*/
     private void fillBoard() {
-        board = new Board();
         System.out.println("\nSudoku Board\n");
         board.printBoard();
 
@@ -83,9 +81,10 @@ public class SudokuController {
                 // --------------------------------------
                 textField.setStyle(style);
 
-                if (number > 0 && number < 7) {
+                if (number > 0) {
                     textField.setText(String.valueOf(number));
                     textField.setEditable(false);
+                    System.out.println("Numero bloqueado: " + Integer.toString(number));
                     textField.setStyle(style + "-fx-text-fill: #FF9999;"); // Color distinto para los fijos
                 } else {
                     textField.setText("");
@@ -106,17 +105,28 @@ public class SudokuController {
             if (!newVal.isEmpty()) {
                 try {
                     int num = Integer.parseInt(newVal);
-                    boolean isValid = board.isValid(row, col, num);
-                    System.out.println(isValid);
-
-                    // Retroalimentación visual, cambiado para que
-                    if (isValid) {
-                        textField.getStyleClass().remove("invalid");
-                    } else {
-                        if (!textField.getStyleClass().contains("invalid")) {
-                            textField.getStyleClass().add("invalid");
-                        }
+                    // Validar rango de entrada de numero al board de sudoku
+                    if(num < 1 || num > 6) {
+                        System.out.println("Valor incorrecto.");
+                        return ;
                     }
+                        boolean isValid = board.isValid(row, col, num);
+                        System.out.println(isValid);
+
+                        // Retroalimentación visual, cambiado para que
+                        // Si es true agrega el numero al board de sudoku
+                        if (isValid == true) {
+                            textField.getStyleClass().remove("invalid");
+                            System.out.println("entro al if");
+                            board.putNumber(row, col, num);
+                        // Si es false  no se agrega al board de sudoku, pero si aparece en el TextField
+                        } else {
+                            System.out.println("entro al else");
+                            if (!textField.getStyleClass().contains("invalid")) {
+                                textField.getStyleClass().add("invalid");
+                            }
+                        }
+                        board.printBoard(); // Imprimir board de sudoku
                 } catch (NumberFormatException e) {
                     textField.setStyle("-fx-border-color: red;");
                 }

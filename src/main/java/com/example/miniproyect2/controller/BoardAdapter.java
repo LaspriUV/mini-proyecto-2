@@ -64,6 +64,7 @@ public class BoardAdapter implements IBoardController {
 
     @Override
     public boolean isValid(int row, int col, int candidate) {
+
         // verificar fila
         for (int j = 0; j < SIZE; j++) {
             if (board.get(row).get(j) == candidate) {
@@ -78,7 +79,28 @@ public class BoardAdapter implements IBoardController {
             }
         }
 
-        // Verificar bloque (2x3)
+        int blockStartRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
+        int blockStartCol = (col / BLOCK_COLS) * BLOCK_COLS;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+
+                boolean inRow = (i == row);
+                boolean inCol = (j == col);
+                boolean inBlock = (i >= blockStartRow && i < blockStartRow + BLOCK_ROWS)
+                        && (j >= blockStartCol && j < blockStartCol + BLOCK_COLS);
+
+                if ((inRow || inCol || inBlock) && board.get(i).get(j) == candidate) {
+                    return false;
+                }
+
+                //board.get(i).set(j, candidate);
+                //System.out.println("se agrego: " + Integer.toString(candidate));
+            }
+        }
+        return true;
+        /*
+        // Verificar bloque (2 filas x3 columnas)
         int blockStartRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
         int blockStartCol = (col / BLOCK_COLS) * BLOCK_COLS;
 
@@ -90,7 +112,8 @@ public class BoardAdapter implements IBoardController {
             }
         }
 
-        return true;
+
+        return true;*/
     }
 
     @Override
@@ -101,6 +124,12 @@ public class BoardAdapter implements IBoardController {
             }
             System.out.println();
         }
+    }
+
+    // Ingresa los numeros a la lista de lista
+    @Override
+    public void putNumber(int row, int col, int candidate) {
+        board.get(row).set(col, candidate);
     }
 
     public List<List<Integer>> getBoard() {

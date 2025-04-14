@@ -1,5 +1,7 @@
 /*Css para darle diseño a la mayoria de las cosas*/
-
+/*HU-1 INTERFAZ GRAFICA
+*DISEÑO DEBE SER VISUALMENTE ATRACTIVO Y COHERENTE*/
+/*----------TEXTFIELDS------------*/
 /*Para los textfields, que tengan fondo negro y texto y borde blanco -.- */
 .text-field {
     -fx-border-color: white;
@@ -16,5 +18,45 @@
 .text-field.invalid {
     -fx-border-color: red;
 }
+
+
+/*--------BORDES DE LOS TEXTFIELDS Y FONDOS------*/
+/*HU-1 INTERFAZ GRAFICA
+*DISEÑO VISUALMENTE ATRACTIVO Y COHERENTE*/
+.block-dark {
+    -fx-background-color: #2b2b2b;
+}
+
+.block-light {
+    -fx-background-color: #1e1e1e;
+}
+
+/*HU-1 INTERFAZ GRAFICA
+*DISPOSICION DE LOS ELEMENTOS DEBE SER LOGICA Y FACILITAR LA NAVEGACION*/
+
+.border-left {
+    -fx-border-left-width: 3px;
+}
+.border-top {
+    -fx-border-top-width: 3px;
+}
+.border-right {
+    -fx-border-right-width: 3px;
+}
+.border-bottom {
+    -fx-border-bottom-width: 3px;
+}
+
+/*HU-1 INTERFAZ GRAFICA
+*DISEÑO VISUALMENTE ATRACTIVO Y COHERENTE*/
+
+.fixed-cell {
+    -fx-text-fill: #FF9999;
+}
+.player-cell {
+    -fx-text-fill: white;
+}
+
+
 
 

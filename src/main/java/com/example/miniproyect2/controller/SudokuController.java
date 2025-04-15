@@ -3,34 +3,22 @@ package com.example.miniproyect2.controller;
 import com.example.miniproyect2.model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import java.util.function.UnaryOperator;
 
 public class SudokuController {
+
     @FXML
     private GridPane boardGridPane;
     private Board board = new Board();
-    private Board.BoardFull boardFull;
-
-    @FXML
-    private Button helpButton;
 
     @FXML
     public void initialize() {
         fillBoard();
-        //initializaFullBoard();
     }
 
-    public void initializaFullBoard() {
-        Board board = new Board();
-        this.boardFull = board.new BoardFull();
-        boardFull.printBoardFull();
-    }
-
-    /*HU-1 Creacion de los campos de texto, crea un for, donde empieza en la fila 0, columna 0, donde
-    * cada vez va sumando 1 en 1*/
     private void fillBoard() {
         System.out.println("\nSudoku Board\n");
         board.printBoard();
@@ -39,105 +27,88 @@ public class SudokuController {
             for (int col = 0; col < board.getBoard().size(); col++) {
                 int number = board.getBoard().get(row).get(col);
                 TextField textField = new TextField();
+                /*HU-1- INTERFAZ GRAFICA
+                *CUADRICULA DE 6X6 CLARAMENTE VISIBLE*/
                 textField.setAlignment(Pos.CENTER);
                 textField.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                GridPane.setHgrow(textField, Priority.ALWAYS);
-                GridPane.setVgrow(textField, Priority.ALWAYS);
+                //CAMBIO PARA QUE EL DISEÑO SE MANEJE DESDE EL ARCHIVO DE CSS
+                textField.getStyleClass().add("text-field");
 
-                // --------------------------------------
-                // 1. Base del estilo (sin fondo todavía)
-                // --------------------------------------
-                String style = "-fx-border-color: white; -fx-border-width: 1px; -fx-text-fill: white; ";
-
-                // --------------------------------------
-                // 2. Estilo de fondo alternado por bloque 2x3
-                // --------------------------------------
-                int blockRow = row / 2;   // Bloques de 2 filas
-                int blockCol = col / 3;   // Bloques de 3 columnas
+                /*HU-1 INTERFAZ GRAFICA
+                *DISEÑO DEBE SER VISUALMENTE ATRACTIVO Y COHERENTE*/
+                // Fondo de bloque claro u oscuro
+                int blockRow = row / 2;
+                int blockCol = col / 3;
                 if ((blockRow + blockCol) % 2 == 0) {
-                    style += "-fx-background-color: #2b2b2b;";  // Fondo más oscuro
+                    //CAMBIADO PARA QUE SE MANEJE DESDE CSS
+                    textField.getStyleClass().add("block-dark");
                 } else {
-                    style += "-fx-background-color: #1e1e1e;";  // Fondo más claro
+                    textField.getStyleClass().add("block-light");
                 }
 
-                // --------------------------------------
-                // 3. Bordes extra para separar los bloques
-                // --------------------------------------
-                if (col % 3 == 0) {
-                    style += "-fx-border-left-width: 3px;";
-                }
-                if (row % 2 == 0) {
-                    style += "-fx-border-top-width: 3px;";
-                }
-                if (col == board.getBoard().size() - 1) {
-                    style += "-fx-border-right-width: 3px;";
-                }
-                if (row == board.getBoard().size() - 1) {
-                    style += "-fx-border-bottom-width: 3px;";
-                }
+                //Bordes según la posición, para separar los bloques
+                if (col % 3 == 0) textField.getStyleClass().add("border-left");
+                if (row % 2 == 0) textField.getStyleClass().add("border-top");
+                if (col == board.getBoard().size() - 1) textField.getStyleClass().add("border-right");
+                if (row == board.getBoard().size() - 1) textField.getStyleClass().add("border-bottom");
 
-                // --------------------------------------
-                // 4. Aplicar estilo y contenido
-                // --------------------------------------
-                textField.setStyle(style);
-
-                if (number > 0) {
+                //Celdas fijas o jugables
+                if (number > 0 && number < 7) {
                     textField.setText(String.valueOf(number));
                     textField.setEditable(false);
-                    System.out.println("Numero bloqueado: " + Integer.toString(number));
-                    textField.setStyle(style + "-fx-text-fill: #FF9999;"); // Color distinto para los fijos
+                    textField.getStyleClass().add("fixed-cell");
                 } else {
-                    textField.setText("");
-                    textField.setStyle(style + "-fx-text-fill: white;"); // Color blanco para el jugador
+                    textField.getStyleClass().add("player-cell");
                 }
 
-                boardGridPane.setRowIndex(textField, row);
-                boardGridPane.setColumnIndex(textField, col);
-                boardGridPane.getChildren().add(textField);
+                boardGridPane.add(textField, col, row);
                 handleNumberTextField(textField, row, col);
             }
         }
     }
 
-    /*HU-1 Si se digita un caracter diferente a un numero, se colorea el textField de color rojo*/
+    /*HU-2 INGRESO DE NUMEROS*/
     private void handleNumberTextField(TextField textField, int row, int col) {
+        //Filtro para restringir la entrada a un solo dígito del 1 al 6
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String newText = change.getControlNewText();
+            return newText.matches("[1-6]?") ? change : null;
+        };
+        //Aplica el filtro al TextField
+        textField.setTextFormatter(new TextFormatter<>(filter));
+
+        /*HU-2 INGRESO DE NÚMEROS
+         *CELDA SOLO PERMITE LA ENTRADA DE NUMEROS UNICAMENTE DEL 1 AL 6
+         *Evita que el usuario escriba letras, símbolos o números fuera del rango permitido.
+         */
         textField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.isEmpty()) {
                 try {
                     int num = Integer.parseInt(newVal);
-                    // Validar rango de entrada de numero al board de sudoku
-                    if(num < 1 || num > 6) {
-                        System.out.println("Valor incorrecto.");
-                        return ;
-                    }
-                        boolean isValid = board.isValid(row, col, num);
-                        System.out.println(isValid);
+                    if (num < 1 || num > 6) return;
 
-                        // Retroalimentación visual, cambiado para que
-                        // Si es true agrega el numero al board de sudoku
-                        if (isValid == true) {
-                            textField.getStyleClass().remove("invalid");
-                            System.out.println("entro al if");
-                            board.putNumber(row, col, num);
-                        // Si es false  no se agrega al board de sudoku, pero si aparece en el TextField
-                        } else {
-                            System.out.println("entro al else");
-                            if (!textField.getStyleClass().contains("invalid")) {
-                                textField.getStyleClass().add("invalid");
-                            }
+                    boolean isValid = board.isValid(row, col, num);
+                    if (isValid) {
+                        textField.getStyleClass().remove("invalid");
+                        board.putNumber(row, col, num);
+                    } else {
+                        if (!textField.getStyleClass().contains("invalid")) {
+                            textField.getStyleClass().add("invalid");
                         }
-                        board.printBoard(); // Imprimir board de sudoku
+                    }
                 } catch (NumberFormatException e) {
-                    textField.setStyle("-fx-border-color: red;");
+                    textField.getStyleClass().add("invalid");
                 }
             } else {
-                textField.setStyle(""); // Reset si está vacío
+                textField.getStyleClass().remove("invalid");
             }
         });
+
+        textField.setOnContextMenuRequested(event -> event.consume());
     }
 
     @FXML
     private void helpButtonAction() {
-
+        // lógica del botón de ayuda
     }
 }

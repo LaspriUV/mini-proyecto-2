@@ -11,7 +11,7 @@ public class main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/miniproyect2/start-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-        stage.setTitle("Sudokugitgit");
+        stage.setTitle("Sudoku.");
         stage.setResizable(false);
         stage.show();
     }

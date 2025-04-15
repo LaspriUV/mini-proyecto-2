@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.miniproyect2.controller.SudokuController">
@@ -24,15 +27,40 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <Label layoutX="156.0" layoutY="42.0" text="Sudoku" textFill="WHITE" AnchorPane.topAnchor="40.0">
+        <Label layoutX="156.0" layoutY="42.0" text="Sudoku" textFill="#867e7e" AnchorPane.topAnchor="40.0">
             <font>
                 <Font name="Bookman Old Style" size="24.0" />
             </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect>
         </Label>
-      <Button layoutX="175.0" layoutY="335.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Ayuda">
+      <Button alignment="CENTER" layoutX="175.0" layoutY="335.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Ayuda">
          <font>
             <Font name="Bookman Old Style" size="12.0" />
-         </font></Button>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Glow level="0.8" />
+         </effect></Button>
+      <Ellipse centerY="-1.0" fill="WHITE" layoutX="202.0" layoutY="72.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+         <effect>
+            <MotionBlur>
+               <input>
+                  <Shadow />
+               </input></MotionBlur>
+         </effect></Ellipse>
+      <Ellipse centerY="-1.0" fill="WHITE" layoutX="205.0" layoutY="356.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+         <effect>
+            <MotionBlur angle="72.0" radius="63.0">
+               <input>
+                  <Shadow />
+               </input>
+            </MotionBlur>
+         </effect>
+      </Ellipse>
 
 
 

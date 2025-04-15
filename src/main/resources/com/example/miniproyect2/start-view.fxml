@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
@@ -13,29 +15,25 @@
             <font>
                 <Font name="Bookman Old Style" size="36.0" />
             </font>
-        </Text>
-        <Button fx:id="playButton" layoutX="152.0" layoutY="187.0" mnemonicParsing="false" prefWidth="100" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Jugar" />
-        <Button fx:id="instructionsButton" layoutX="152.0" layoutY="257.0" mnemonicParsing="false" prefWidth="100" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Instrucciones" />
-      <Polyline fill="WHITE" layoutX="77.0" layoutY="324.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="-40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="-40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="60.0" />
-          <Double fx:value="-50.0" />
-          <Double fx:value="-40.0" />
-        </points>
          <effect>
-            <MotionBlur>
-               <input>
-                  <Shadow />
-               </input>
-            </MotionBlur>
+            <Glow level="0.8" />
          </effect>
-      </Polyline>
-      <Polyline fill="WHITE" layoutX="104.0" layoutY="141.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+        </Text>
+        <Button fx:id="playButton" layoutX="152.0" layoutY="187.0" mnemonicParsing="false" prefWidth="100" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Jugar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Glow level="0.8" />
+         </effect></Button>
+        <Button fx:id="instructionsButton" layoutX="152.0" layoutY="257.0" mnemonicParsing="false" prefWidth="100" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Instrucciones">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Glow level="0.8" />
+         </effect></Button>
+      <Polyline fill="WHITE" layoutX="104.0" layoutY="142.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
         <points>
           <Double fx:value="-50.0" />
           <Double fx:value="-40.0" />
@@ -54,7 +52,7 @@
             </Shadow>
          </effect>
       </Polyline>
-      <Polyline fill="WHITE" layoutX="302.0" layoutY="141.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+      <Polyline fill="WHITE" layoutX="302.0" layoutY="142.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
         <points>
           <Double fx:value="-50.0" />
           <Double fx:value="-40.0" />
@@ -73,11 +71,50 @@
             </MotionBlur>
          </effect>
       </Polyline>
-      <Ellipse fill="WHITE" layoutX="202.0" layoutY="114.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+      <Ellipse fill="WHITE" layoutX="202.0" layoutY="115.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
          <effect>
             <MotionBlur>
                <input>
                   <Shadow />
+               </input>
+            </MotionBlur>
+         </effect>
+      </Ellipse>
+      <Ellipse fill="WHITE" layoutX="204.0" layoutY="271.0" mouseTransparent="true" radiusX="66.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+         <effect>
+            <MotionBlur angle="72.0" radius="63.0">
+               <input>
+                  <Shadow>
+                     <color>
+                        <Color red="0.06578947603702545" green="0.05969785526394844" blue="0.05969785526394844" />
+                     </color>
+                  </Shadow>
+               </input>
+            </MotionBlur>
+         </effect>
+      </Ellipse>
+      <Ellipse fill="WHITE" layoutX="202.0" layoutY="91.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+         <effect>
+            <MotionBlur angle="72.0" radius="63.0">
+               <input>
+                  <Shadow>
+                     <color>
+                        <Color red="0.06578947603702545" green="0.05969785526394844" blue="0.05969785526394844" />
+                     </color>
+                  </Shadow>
+               </input>
+            </MotionBlur>
+         </effect>
+      </Ellipse>
+      <Ellipse fill="WHITE" layoutX="204.0" layoutY="201.0" mouseTransparent="true" radiusX="66.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+         <effect>
+            <MotionBlur angle="72.0" radius="63.0">
+               <input>
+                  <Shadow>
+                     <color>
+                        <Color red="0.06578947603702545" green="0.05969785526394844" blue="0.05969785526394844" />
+                     </color>
+                  </Shadow>
                </input>
             </MotionBlur>
          </effect>

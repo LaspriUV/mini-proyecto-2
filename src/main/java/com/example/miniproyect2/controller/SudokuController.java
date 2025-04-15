@@ -5,9 +5,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import java.util.function.UnaryOperator;
-
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 public class SudokuController {
 
     @FXML
@@ -17,7 +20,22 @@ public class SudokuController {
     @FXML
     public void initialize() {
         fillBoard();
+        Image heart = new Image(getClass().getResource("/com/example/miniproyect2/corazon.png").toExternalForm());
+        life1.setImage(heart);
+        life2.setImage(heart);
+        life3.setImage(heart);
+        life4.setImage(heart);
+        life5.setImage(heart);
     }
+
+    //5 CORAZONES
+    @FXML private ImageView life1;
+    @FXML private ImageView life2;
+    @FXML private ImageView life3;
+    @FXML private ImageView life4;
+    @FXML private ImageView life5;
+    private int livesRemaining = 5;
+
 
     private void fillBoard() {
         System.out.println("\nSudoku Board\n");
@@ -95,6 +113,7 @@ public class SudokuController {
                         if (!textField.getStyleClass().contains("invalid")) {
                             textField.getStyleClass().add("invalid");
                         }
+                        loseLife(); //Restar una vida al fallar
                     }
                 } catch (NumberFormatException e) {
                     textField.getStyleClass().add("invalid");
@@ -103,9 +122,27 @@ public class SudokuController {
                 textField.getStyleClass().remove("invalid");
             }
         });
-
         textField.setOnContextMenuRequested(event -> event.consume());
     }
+    //Metodo para los corazones
+    private void loseLife() {
+        switch (livesRemaining) {
+            case 5 -> life5.setVisible(false);
+            case 4 -> life4.setVisible(false);
+            case 3 -> life3.setVisible(false);
+            case 2 -> life2.setVisible(false);
+            case 1 -> life1.setVisible(false);
+        }
+
+        livesRemaining--;
+
+        if (livesRemaining == 0) {
+            System.out.println("¡Perrrrdistee!");
+            //Desabiilitamos tablero si se pierde
+            boardGridPane.setDisable(true);
+        }
+    }
+
 
     @FXML
     private void helpButtonAction() {

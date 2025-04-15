@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.miniproyect2.controller.InstructionsController">
     <VBox layoutX="50.0" layoutY="30.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
         <!-- Título con brillo y sombra -->
-        <Label alignment="CENTER" prefHeight="35.0" prefWidth="562.0" text="Instrucciones" style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Bookman Old Style';">
+        <Label alignment="CENTER" prefHeight="35.0" prefWidth="562.0" style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Bookman Old Style';" text="Instrucciones">
             <effect>
                 <Glow level="0.8" />
             </effect>
@@ -23,12 +22,14 @@
         <Label style="-fx-text-fill: white; -fx-font-family: 'Bookman Old Style';" text="4. Gana si completas el tablero correctamente." />
 
         <!-- Botón Regresar con mismo estilo de los otros -->
-        <Button fx:id="backButton" text="Regresar" alignment="CENTER" maxWidth="100.0" onAction="#handleReturn"
-                style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50; -fx-font-family: 'Bookman Old Style'; -fx-font-size: 14px; -fx-padding: 10px;">
+        <Button fx:id="backButton" alignment="CENTER" maxWidth="100.0" onAction="#handleReturn" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50; -fx-font-family: 'Bookman Old Style'; -fx-font-size: 14px; -fx-padding: 10px;" text="Regresar">
 
             <effect>
-                <Glow level="0.8"/>
+                <Glow level="0.8" />
             </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
     </VBox>
 </AnchorPane>

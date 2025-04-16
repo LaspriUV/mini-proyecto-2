@@ -9,7 +9,7 @@
     <VBox layoutX="50.0" layoutY="30.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
 
         <!-- Título con brillo y sombra -->
-        <Label alignment="CENTER" prefHeight="35.0" prefWidth="562.0" style="-fx-font-size: 24px; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Bookman Old Style';" text="Instrucciones">
+        <Label alignment="CENTER" prefHeight="35.0" prefWidth="562.0" style="-fx-font-size: 32; -fx-text-fill: white; -fx-font-family: 'Bookman Old Style';" text="Instrucciones">
             <effect>
                 <Glow level="0.8" />
             </effect>

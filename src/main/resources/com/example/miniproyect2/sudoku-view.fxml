@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.miniproyect2.controller.SudokuController">
     <children>
         <GridPane fx:id="boardGridPane" gridLinesVisible="true" layoutX="100.0" layoutY="155.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
@@ -36,7 +38,7 @@
             <Glow level="1.0" />
          </effect>
         </Label>
-      <Button alignment="CENTER" layoutX="175.0" layoutY="335.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Ayuda">
+      <Button alignment="CENTER" layoutX="175.0" layoutY="335.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white; -fx-border-width: 1; -fx-background-radius: 50; -fx-border-radius: 50;" text="Ayuda" onAction="#helpButtonAction">
          <font>
             <Font name="Bookman Old Style" size="12.0" />
          </font>
@@ -53,7 +55,7 @@
                   <Shadow />
                </input></MotionBlur>
          </effect></Ellipse>
-      <Ellipse centerY="-1.0" fill="WHITE" layoutX="205.0" layoutY="356.0" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+      <Ellipse centerY="-1.0" fill="WHITE" layoutX="205.0" layoutY="356.0" mouseTransparent="true" radiusX="148.0" radiusY="14.0" stroke="WHITE" strokeDashOffset="90.0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
          <effect>
             <MotionBlur angle="72.0" radius="63.0">
                <input>
@@ -62,13 +64,67 @@
             </MotionBlur>
          </effect>
       </Ellipse>
-        <VBox layoutX="320.0" layoutY="140.0" spacing="5" fx:id="livesBox" alignment="CENTER_RIGHT" style="-fx-padding: 0 10 0 0;">
-        <ImageView fx:id="life1" fitHeight="30.0" fitWidth="30.0" />
-            <ImageView fx:id="life2" fitHeight="30.0" fitWidth="30.0" />
-            <ImageView fx:id="life3" fitHeight="30.0" fitWidth="30.0" />
-            <ImageView fx:id="life4" fitHeight="30.0" fitWidth="30.0" />
-            <ImageView fx:id="life5" fitHeight="30.0" fitWidth="30.0" />
-            <Label text="Vidas restantes" textFill="white" style="-fx-font-size: 12px;" />
+        <VBox fx:id="livesBox" alignment="CENTER_RIGHT" layoutX="302.0" layoutY="99.0" prefHeight="210.0" prefWidth="108.0" spacing="5" style="-fx-padding: 0 10 0 0;">
+        <ImageView fx:id="life1" fitHeight="30.0" fitWidth="30.0">
+            <effect>
+               <DropShadow>
+                  <color>
+                     <Color red="0.6973684430122375" green="0.6392543911933899" blue="0.6392543911933899" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin></ImageView>
+         <ImageView fx:id="life12" fitHeight="30.0" fitWidth="30.0" layoutX="78.0" layoutY="98.0">
+            <effect>
+               <DropShadow>
+                  <color>
+                     <Color red="0.6973684430122375" green="0.6392543911933899" blue="0.6392543911933899" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+         </ImageView>
+         <ImageView fx:id="life11" fitHeight="30.0" fitWidth="30.0" layoutX="78.0" layoutY="80.0">
+            <effect>
+               <DropShadow>
+                  <color>
+                     <Color red="0.6973684430122375" green="0.6392543911933899" blue="0.6392543911933899" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+         </ImageView>
+         <ImageView fx:id="life121" fitHeight="30.0" fitWidth="30.0" layoutX="78.0" layoutY="98.0">
+            <effect>
+               <DropShadow>
+                  <color>
+                     <Color red="0.6973684430122375" green="0.6392543911933899" blue="0.6392543911933899" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+         </ImageView>
+         <ImageView fx:id="life111" fitHeight="30.0" fitWidth="30.0" layoutX="78.0" layoutY="45.0">
+            <effect>
+               <DropShadow>
+                  <color>
+                     <Color red="0.6973684430122375" green="0.6392543911933899" blue="0.6392543911933899" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+         </ImageView>
+            <Label prefHeight="17.0" prefWidth="88.0" style="-fx-font-size: 12px;" text="Vidas restantes" textFill="white" />
         </VBox>
     </children>
 </AnchorPane>

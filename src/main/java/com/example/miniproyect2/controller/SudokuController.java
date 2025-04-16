@@ -2,6 +2,7 @@ package com.example.miniproyect2.controller;
 
 import com.example.miniproyect2.Utils.GameOverAlert;
 import com.example.miniproyect2.model.Board;
+import com.example.miniproyect2.controller.BoardAdapter;
 import com.example.miniproyect2.view.SudokuStage;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -12,9 +13,9 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.function.UnaryOperator;
-import javafx.fxml.FXML;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SudokuController {
@@ -22,27 +23,35 @@ public class SudokuController {
     @FXML
     private GridPane boardGridPane;
     private Board board = new Board();
+    private BoardAdapter boardAdapter = new BoardAdapter();
+    private BoardAdapter.LogicHelpButton logicButtonHelp = boardAdapter.createLogicHelpButton();
+    private TextField[][] textFields;
+
 
     private TextField lastFocusedTextField;
 
     @FXML
     public void initialize() {
+        boardGridPane.getChildren().clear();
+        textFields = new TextField[6][6];
         fillBoard();
         Image heart = new Image(getClass().getResource("/com/example/miniproyect2/corazon.png").toExternalForm());
+        life11.setImage(heart);
+        life12.setImage(heart);
+        life111.setImage(heart);
+        life121.setImage(heart);
         life1.setImage(heart);
-        life2.setImage(heart);
-        life3.setImage(heart);
-        life4.setImage(heart);
-        life5.setImage(heart);
     }
 
     //5 CORAZONES
     @FXML private ImageView life1;
-    @FXML private ImageView life2;
-    @FXML private ImageView life3;
-    @FXML private ImageView life4;
-    @FXML private ImageView life5;
+    @FXML private ImageView life11;
+    @FXML private ImageView life12;
+    @FXML private ImageView life111;
+    @FXML private ImageView life121;
+    @FXML private VBox livesBox;
     private int livesRemaining = 5;
+    private int count = 0;
 
 
     private void fillBoard() {
@@ -53,6 +62,8 @@ public class SudokuController {
             for (int col = 0; col < board.getBoard().size(); col++) {
                 int number = board.getBoard().get(row).get(col);
                 TextField textField = new TextField();
+                textFields[row][col] = textField;  // Guarda la referencia
+
                 /*HU-1- INTERFAZ GRAFICA
                  *CUADRICULA DE 6X6 CLARAMENTE VISIBLE*/
                 textField.setAlignment(Pos.CENTER);
@@ -89,13 +100,13 @@ public class SudokuController {
 
                 boardGridPane.add(textField, col, row);
                 handleNumberTextField(textField, row, col);
-
+                /*
                 // Tomar el ultimo listener
                 textField.focusedProperty().addListener((obs, ldVal, newVal) -> {
                     if (newVal) {
                         lastFocusedTextField = textField;
                     }
-                });
+                });*/
             }
         }
     }
@@ -124,8 +135,9 @@ public class SudokuController {
                     if (isValid) {
                         textField.getStyleClass().remove("invalid");
                         board.putNumber(row, col, num);
+                        count++;
                         checkWin();
-                        System.out.println("entro");
+                        board.printBoard();
                     } else {
                         if (!textField.getStyleClass().contains("invalid")) {
                             textField.getStyleClass().add("invalid");
@@ -136,6 +148,9 @@ public class SudokuController {
                     textField.getStyleClass().add("invalid");
                 }
             } else {
+                // Quita el numero del Arraylist
+                board.putNumber(row, col, 0);
+                board.printBoard();
                 textField.getStyleClass().remove("invalid");
             }
         });
@@ -174,11 +189,11 @@ public class SudokuController {
     //Metodo para los corazones
     private void loseLife() {
         switch (livesRemaining) {
-            case 5 -> life5.setVisible(false);
-            case 4 -> life4.setVisible(false);
-            case 3 -> life3.setVisible(false);
-            case 2 -> life2.setVisible(false);
-            case 1 -> life1.setVisible(false);
+            case 5 -> life1.setVisible(false);
+            case 4 -> life12.setVisible(false);
+            case 3 -> life11.setVisible(false);
+            case 2 -> life121.setVisible(false);
+            case 1 -> life111.setVisible(false);
         }
 
         livesRemaining--;
@@ -192,6 +207,7 @@ public class SudokuController {
     private void reiniciar() {
         livesRemaining = 5;
         board = new Board();
+        textFields = new TextField[6][6];
         initialize();
     }
 
@@ -225,38 +241,26 @@ public class SudokuController {
         }
     }
 
+
+
     // HU-4
     @FXML
     private void helpButtonAction() {
-        javafx.scene.Node focusedNode = boardGridPane.getScene().getFocusOwner();
+        if (logicButtonHelp.fillRandomCell()) {
+            updateBoardUI(); // Actualiza la interfaz gráfica
+            System.out.println("¡Celda ayudada!");
+        } else {
+            System.out.println("El tablero ya está completo.");
+        }
+    }
 
-        if (focusedNode instanceof TextField && focusedNode.getParent() == boardGridPane) {
-            TextField focusedTextField = (TextField) focusedNode;
-            // Obtener la fila y columna del TextField que tiene el foco
-            Integer colIndex = GridPane.getColumnIndex(focusedTextField);
-            Integer rowIndex = GridPane.getRowIndex(focusedTextField);
-
-            if (colIndex != null && rowIndex != null) {
-                int row = rowIndex;
-                int col = colIndex;
-                int currentNumber = board.getNumber(row, col);
-
-                if (currentNumber == 0) {
-                    for (int number = 1; number <= 6; number++) {
-                        if (board.isValid(row,col,number)) {
-                            System.out.println("el candidato correcto es : " + Integer.toString(number));
-                            board.putNumber(row, col, number);
-                            lastFocusedTextField.setText(String.valueOf(number));
-                            board.printBoard();
-                            return; // Solo queremos ayudar con una celda a la vez
-                        }
-                    }
-                    System.out.println("No hay ayuda válida para la celda [" + row + "][" + col + "]");
-                } else {
-                    System.out.println("La celda [" + row + "][" + col + "] ya está llena.");
-                }
-            } else {
-                System.out.println("Por favor, selecciona una celda vacía para obtener ayuda.");
+    private void updateBoardUI() {
+        // Actualiza los TextFields según el estado actual del tablero
+        for (int row = 0; row < board.getBoard().size(); row++) {
+            for (int col = 0; col < board.getBoard().size(); col++) {
+                TextField textField = textFields[row][col];
+                int value = board.getNumber(row, col);
+                textField.setText(value == 0 ? "" : String.valueOf(value));
             }
         }
     }

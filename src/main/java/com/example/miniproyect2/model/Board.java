@@ -67,7 +67,6 @@ public class Board extends BoardAdapter {
         }
 
         public void printBoardFull() {
-            System.out.println("\nSudoku Board Full\n");
             for (List<Integer> row : board) {
                 for (Integer number : row) {
                     System.out.print(number + " ");

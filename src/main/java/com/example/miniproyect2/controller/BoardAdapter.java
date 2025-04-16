@@ -74,14 +74,24 @@ public class BoardAdapter implements IBoardController {
 
         // verificar columna
         for (int i = 0; i < SIZE; i++) {
-            if (board.get(row).get(i) == candidate) {
+            //se cambio board.get(row).get(i) por:
+            if (board.get(i).get(col) == candidate) {
                 return false;
             }
         }
 
+        // Verificar bloque
         int blockStartRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
         int blockStartCol = (col / BLOCK_COLS) * BLOCK_COLS;
 
+        for (int i = blockStartRow; i < blockStartRow + BLOCK_ROWS; i++) {
+            for (int j = blockStartCol; j < blockStartCol + BLOCK_COLS; j++) {
+                if (board.get(i).get(j) == candidate) {
+                    return false;
+                }
+            }
+        }
+        /*
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
 
@@ -94,12 +104,13 @@ public class BoardAdapter implements IBoardController {
                     return false;
                 }
             }
-        }
+        }*/
         return true;
     }
 
     @Override
     public void printBoard() {
+        System.out.println("\nSudoku Board\n");
         for (List<Integer> row : board) {
             for (Integer number : row) {
                 System.out.print(number + " ");
@@ -121,6 +132,49 @@ public class BoardAdapter implements IBoardController {
     public List<List<Integer>> getBoard() {
         return board;
     }
+
+    public class LogicHelpButton {
+        /**
+         * Llena una celda vacía aleatoria con un número válido.
+         *
+         * @return true si se llenó una celda, false si el tablero está completo.
+         */
+        public boolean fillRandomCell() {
+            List<int[]> emptyCells = new ArrayList<>();
+
+            // Buscar celdas vacías (accede directamente a board de BoardAdapter)
+            for (int row = 0; row < SIZE; row++) {
+                for (int col = 0; col < SIZE; col++) {
+                    if (board.get(row).get(col) == 0) {
+                        emptyCells.add(new int[]{row, col});
+                    }
+                }
+            }
+
+            if (emptyCells.isEmpty()) {
+                return false; // Tablero completo
+            }
+
+            // Elegir celda aleatoria
+            int[] randomCell = emptyCells.get(random.nextInt(emptyCells.size()));
+            int row = randomCell[0];
+            int col = randomCell[1];
+
+            // Probar números del 1 al 6 (usa isValid() de BoardAdapter)
+            for (int num = 1; num <= SIZE; num++) {
+                if (isValid(row, col, num)) {
+                    board.get(row).set(col, num);
+                    return true;
+                }
+            }
+            return false; // No hubo número válido (raro en Sudoku)
+        }
+    }
+    // Metodo para exponer el LogicHelpButton
+    public LogicHelpButton createLogicHelpButton() {
+        return new LogicHelpButton();
+    }
+
 
 }
 

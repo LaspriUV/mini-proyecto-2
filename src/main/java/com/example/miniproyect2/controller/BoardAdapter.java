@@ -93,27 +93,9 @@ public class BoardAdapter implements IBoardController {
                 if ((inRow || inCol || inBlock) && board.get(i).get(j) == candidate) {
                     return false;
                 }
-
-                //board.get(i).set(j, candidate);
-                //System.out.println("se agrego: " + Integer.toString(candidate));
             }
         }
         return true;
-        /*
-        // Verificar bloque (2 filas x3 columnas)
-        int blockStartRow = (row / BLOCK_ROWS) * BLOCK_ROWS;
-        int blockStartCol = (col / BLOCK_COLS) * BLOCK_COLS;
-
-        for (int i = blockStartRow; i < blockStartRow + BLOCK_ROWS; i++) {
-            for (int j = blockStartCol; j < blockStartCol + BLOCK_COLS; j++) {
-                if (board.get(i).get(j) == candidate) {
-                    return false;
-                }
-            }
-        }
-
-
-        return true;*/
     }
 
     @Override
@@ -132,8 +114,13 @@ public class BoardAdapter implements IBoardController {
         board.get(row).set(col, candidate);
     }
 
+    // Devuelve un numero de la Arraylist (metodo no definido en la interface)
+    public int getNumber(int row, int col) { return board.get(row).get(col);
+    }
+
     public List<List<Integer>> getBoard() {
         return board;
     }
 
 }
+
